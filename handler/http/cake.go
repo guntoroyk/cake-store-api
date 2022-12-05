@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// GetCakes will get all cakes
 func (h *handler) GetCakes(c echo.Context) error {
 	cakes, err := h.cakeUsecase.GetCakes()
 
@@ -25,6 +26,7 @@ func (h *handler) GetCakes(c echo.Context) error {
 	return c.JSON(resp.Code, resp)
 }
 
+// GetCake will get cake by id
 func (h *handler) GetCake(c echo.Context) error {
 	id := c.Param("id")
 
@@ -46,6 +48,7 @@ func (h *handler) GetCake(c echo.Context) error {
 	return c.JSON(resp.Code, resp)
 }
 
+// CreateCake will create a cake
 func (h *handler) CreateCake(c echo.Context) error {
 	cake := new(entity.Cake)
 	resp := HttpResponse{}
@@ -70,6 +73,7 @@ func (h *handler) CreateCake(c echo.Context) error {
 	return c.JSON(resp.Code, resp)
 }
 
+// UpdateCake will update a cake
 func (h *handler) UpdateCake(c echo.Context) error {
 	cake := new(entity.Cake)
 	resp := HttpResponse{}
@@ -100,6 +104,7 @@ func (h *handler) UpdateCake(c echo.Context) error {
 	return c.JSON(resp.Code, resp)
 }
 
+// DeleteCake will delete a cake
 func (h *handler) DeleteCake(c echo.Context) error {
 	id := c.Param("id")
 
