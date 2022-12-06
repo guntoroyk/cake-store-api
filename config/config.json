@@ -4,7 +4,7 @@
     "Port": "8000"
   },
   "DB": {
-    "Host": "127.0.0.1",
+    "Host": "db",
     "Port": "3306",
     "User": "root",
     "Password": "root",
