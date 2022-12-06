@@ -16,15 +16,6 @@ COPY . .
 # Build our application.
 RUN go build -o cake-store-api ./main.go
 
-# Use 'scratch' image for super-mini build.
-FROM scratch AS dev
-
-# Set working directory for this stage.
-WORKDIR /dev
-
-# Copy our compiled executable and allfolders from the last stage.
-COPY --from=api /compiler/ .
-
 # Run application and expose port 8000.
 EXPOSE 8000
 CMD ["./cake-store-api"]

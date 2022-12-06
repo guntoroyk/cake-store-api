@@ -14,6 +14,8 @@ Run on docker
 docker-compose up --build -d
 ```
 
+The API will available at http://localhost:8000/cakes
+
 ## API Documentation
 
 The API has 5 endpoints:
