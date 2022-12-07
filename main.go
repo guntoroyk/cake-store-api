@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
-
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/guntoroyk/cake-store-api/config"
 	httpHandler "github.com/guntoroyk/cake-store-api/handler/http"
+	"github.com/guntoroyk/cake-store-api/lib/validator"
 	dbRepo "github.com/guntoroyk/cake-store-api/repository/db"
 	"github.com/guntoroyk/cake-store-api/storage"
 	"github.com/guntoroyk/cake-store-api/usecase"
@@ -17,11 +16,10 @@ func main() {
 	config := config.GetConfig()
 	e := echo.New()
 
-	fmt.Println("config: ", config)
-
+	validator := validator.GetValidator()
 	db := storage.NewDB(&config.DB)
 	cakeRepo := dbRepo.NewCakeRepo(db)
-	cakeUsecase := usecase.NewCakeUsecase(cakeRepo)
+	cakeUsecase := usecase.NewCakeUsecase(cakeRepo, validator)
 	handler := httpHandler.NewHandler(cakeUsecase)
 
 	// Middleware

@@ -8,6 +8,7 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/guntoroyk/cake-store-api/entity"
+	"github.com/guntoroyk/cake-store-api/lib/validator"
 	"github.com/guntoroyk/cake-store-api/mocks"
 	"github.com/guntoroyk/cake-store-api/repository"
 )
@@ -27,13 +28,14 @@ func TestNewCakeUsecase(t *testing.T) {
 				cakeRepo: nil,
 			},
 			want: &cakeUsecase{
-				cakeRepo: nil,
+				cakeRepo:  nil,
+				validator: validator.GetValidator(),
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewCakeUsecase(tt.args.cakeRepo); !reflect.DeepEqual(got, tt.want) {
+			if got := NewCakeUsecase(tt.args.cakeRepo, validator.GetValidator()); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewCakeUsecase() = %v, want %v", got, tt.want)
 			}
 		})
@@ -266,6 +268,20 @@ func Test_cakeUsecase_CreateCake(t *testing.T) {
 			},
 		},
 		{
+			name: "failed create cake error validation",
+			fields: fields{
+				cakeRepo: func(ctrl *gomock.Controller) repository.CakeRepoItf {
+					mockCakeRepo := mocks.NewMockCakeRepoItf(ctrl)
+					return mockCakeRepo
+				},
+			},
+			args: args{
+				cake: &entity.Cake{},
+			},
+			want:    nil,
+			wantErr: true,
+		},
+		{
 			name: "failed create cake",
 			fields: fields{
 				cakeRepo: func(ctrl *gomock.Controller) repository.CakeRepoItf {
@@ -297,7 +313,8 @@ func Test_cakeUsecase_CreateCake(t *testing.T) {
 			defer ctrl.Finish()
 
 			c := &cakeUsecase{
-				cakeRepo: tt.fields.cakeRepo(ctrl),
+				cakeRepo:  tt.fields.cakeRepo(ctrl),
+				validator: validator.GetValidator(),
 			}
 			got, err := c.CreateCake(tt.args.cake)
 			if (err != nil) != tt.wantErr {
@@ -367,6 +384,20 @@ func Test_cakeUsecase_UpdateCake(t *testing.T) {
 				UpdatedAt:   "2021-01-01 00:00:00",
 			},
 		},
+		{
+			name: "failed create cake error validation",
+			fields: fields{
+				cakeRepo: func(ctrl *gomock.Controller) repository.CakeRepoItf {
+					mockCakeRepo := mocks.NewMockCakeRepoItf(ctrl)
+					return mockCakeRepo
+				},
+			},
+			args: args{
+				cake: &entity.Cake{},
+			},
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -374,7 +405,8 @@ func Test_cakeUsecase_UpdateCake(t *testing.T) {
 			defer ctrl.Finish()
 
 			c := &cakeUsecase{
-				cakeRepo: tt.fields.cakeRepo(ctrl),
+				cakeRepo:  tt.fields.cakeRepo(ctrl),
+				validator: validator.GetValidator(),
 			}
 			got, err := c.UpdateCake(tt.args.cake)
 			if (err != nil) != tt.wantErr {

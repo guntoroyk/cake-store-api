@@ -14,10 +14,10 @@ package entity
 // Cake is the struct for a cake
 type Cake struct {
 	ID          int    `json:"id"`
-	Title       string `json:"title"`
+	Title       string `json:"title" validate:"required,min=3,max=255"`
 	Description string `json:"description"`
-	Rating      int    `json:"rating"`
-	Image       string `json:"image"`
+	Rating      int    `json:"rating" validate:"required,min=1,max=10"`
+	Image       string `json:"image" validate:"required,url"`
 	CreatedAt   string `json:"created_at"`
 	UpdatedAt   string `json:"updated_at"`
 }
