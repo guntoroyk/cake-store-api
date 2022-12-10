@@ -1,5 +1,7 @@
 # cake-store-api
 
+A RestFul API build using Go to demonstrate basic CRUD. Code organized using Clean Architecture.
+
 ## How to run
 
 Clone the repository
@@ -17,6 +19,10 @@ docker-compose up --build -d
 The API will available at http://localhost:8000/cakes
 
 ## API Documentation
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/6929584-5922eef1-a2f0-44af-bab8-ca43e188999d?action=collection%2Ffork&collection-url=entityId%3D6929584-5922eef1-a2f0-44af-bab8-ca43e188999d%26entityType%3Dcollection%26workspaceId%3D376ac51e-7371-4129-b917-abb587ed642f)
+
+Or click this URL https://elements.getpostman.com/redirect?entityId=6929584-5922eef1-a2f0-44af-bab8-ca43e188999d&entityType=collection
 
 The API has 5 endpoints:
 
